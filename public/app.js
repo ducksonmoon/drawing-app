@@ -125,24 +125,30 @@ const drawing$ = mouseDown$.pipe(
   }),
   // switchMap lets us switch to a new observable sequence
   switchMap((down) => {
-    // Create a starting point object
+    // Get the starting position
+    const startX = down.offsetX;
+    const startY = down.offsetY;
+
+    // Create the initial point
     const startPoint = {
-      offsetX: down.offsetX,
-      offsetY: down.offsetY
+      offsetX: startX,
+      offsetY: startY,
     };
-    
+
+    // Return the movements until mouse up or leave
     return mouseMove$.pipe(
       // Start with the initial point to connect properly
       startWith(startPoint),
-      // Use pairwise to get previous and current points together
+      // Use pairwise to get the previous and current points
       pairwise(),
-      // Map to the drawing format
+      // Map to the format our drawing function expects
       map(([prev, curr]) => ({
         prevX: prev.offsetX,
         prevY: prev.offsetY,
         currX: curr.offsetX,
-        currY: curr.offsetY
+        currY: curr.offsetY,
       })),
+      // Stop tracking when mouse up or leave occurs
       takeUntil(merge(mouseUp$, mouseLeave$))
     );
   }),
