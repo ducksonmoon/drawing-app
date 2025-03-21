@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Collaborative Drawing App</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>Let's Draw Together!</h1>
+        <div class="tools">
+          <button id="clear-btn">Clear Canvas</button>
+          <div class="user-list">
+            <h3>Who's Drawing:</h3>
+            <ul id="users"></ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="canvas-container">
+        <canvas id="drawing-canvas"></canvas>
+      </div>
+
+      <div class="footer">
+        <p>Your color: <span id="my-color">loading...</span></p>
+        <p class="help-text">
+          Start drawing by clicking and dragging on the canvas
+        </p>
+      </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://unpkg.com/rxjs@7/dist/bundles/rxjs.umd.min.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
